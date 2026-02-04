@@ -3,442 +3,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>English Quizzer: Survival - 고2</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        display: ['Outfit', 'sans-serif'],
-                    },
-                    colors: {
-                        brand: {
-                            50: '#f0f9ff',
-                            100: '#e0f2fe',
-                            200: '#bae6fd',
-                            500: '#0ea5e9',
-                            600: '#0284c7',
-                            700: '#0369a1',
-                            900: '#0c4a6e',
-                        },
-                        survival: {
-                            gold: '#f59e0b',
-                            forest: '#14532d',
-                            danger: '#ef4444',
-                            success: '#22c55e'
-                        }
-                    },
-                }
-            }
-        }
-    </script>
+    <title>고3반 수능실감_단어연습</title>
     <style>
-        .glass {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+        :root {
+            /* 직전 버전의 자두색으로 복구 */
+            --primary: #851e4d; 
+            --primary-hover: #a33165; 
+            --text-light: #ffffff;
+            --text-sub: #70757a;
+            --bg-body: #f8f9fa;
+            --card-bg: #ffffff;
         }
-        highlight {
-            background-color: #111827;
-            color: #ffffff;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-weight: 600;
-            font-size: 0.95em;
-        }
-        .card-hover {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .card-hover:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-        }
-        .quiz-option:checked + label {
-            background-color: #0ea5e9;
-            color: white;
-            border-color: #0ea5e9;
-        }
+
         body {
-            background: radial-gradient(circle at top right, #f0f9ff, #e0f2fe, #f8fafc);
-            background-attachment: fixed;
+            font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
+            background-color: var(--bg-body);
+            color: #3c4043;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background: var(--card-bg);
+            padding: 40px 20px;
+            border-radius: 24px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            color: var(--text-sub);
+            line-height: 1.6;
+            margin-bottom: 40px;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 15px;
+            padding: 10px;
+        }
+
+        .folder-card {
+            background-color: var(--primary);
+            color: var(--text-light);
+            border-radius: 12px;
+            padding: 20px 10px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 70px;
+            box-shadow: 0 2px 6px rgba(133, 30, 77, 0.2);
+        }
+
+        .folder-card:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(133, 30, 77, 0.3);
+        }
+
+        .folder-name {
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        footer {
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            color: #9aa0a6;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 480px) {
+            .grid-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .header h1 {
+                font-size: 1.5rem;
+            }
         }
     </style>
 </head>
-<body class="text-slate-900 min-h-screen font-sans">
+<body>
 
-    <!-- Header -->
-    <header class="sticky top-0 z-50 glass border-b border-slate-200">
-        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-            <div>
-                <h1 class="font-display font-800 text-2xl tracking-tight text-brand-900">
-                    English Quizzer: <span class="text-brand-600">Survival</span>
-                </h1>
-                <p class="text-xs font-semibold uppercase tracking-widest text-brand-500 mt-0.5">Educational Suite</p>
-            </div>
-            <div class="bg-brand-900 text-white px-4 py-1.5 rounded-full text-sm font-bold shadow-lg shadow-brand-200">
-                LEVEL: 고2
-            </div>
-        </div>
-    </header>
-
-    <main class="max-w-6xl mx-auto px-6 py-12 space-y-24">
-        
-        <!-- Vocabulary Section -->
-        <section id="vocabulary">
-            <div class="flex items-center gap-4 mb-10">
-                <h2 class="font-display font-800 text-4xl text-slate-900">Vocabulary</h2>
-                <div class="h-1 flex-1 bg-gradient-to-r from-brand-500 to-transparent rounded-full opacity-20"></div>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Word 1 -->
-                <div class="glass p-8 rounded-3xl card-hover">
-                    <div class="flex justify-between items-start mb-4">
-                        <h3 class="text-3xl font-800 text-brand-700">Shelter</h3>
-                        <span class="bg-brand-100 text-brand-700 px-3 py-1 rounded-lg text-sm font-bold">피난처, 쉼터</span>
-                    </div>
-                    <p class="text-slate-600 italic mb-4 leading-relaxed">"They quickly <highlight>built</highlight> a temporary shelter from fallen branches and leaves."</p>
-                    <div class="p-4 bg-slate-50/50 rounded-xl border border-slate-100">
-                        <p class="text-sm text-slate-500 font-medium">그들은 / 빠르게 / <highlight>지었다</highlight> / 임시 / 피난처를 / 떨어진 / 가지들과 / 잎들로부터.</p>
-                    </div>
-                </div>
-
-                <!-- Word 2 -->
-                <div class="glass p-8 rounded-3xl card-hover">
-                    <div class="flex justify-between items-start mb-4">
-                        <h3 class="text-3xl font-800 text-brand-700">Forage</h3>
-                        <span class="bg-brand-100 text-brand-700 px-3 py-1 rounded-lg text-sm font-bold">식량 등을 찾아다니다</span>
-                    </div>
-                    <p class="text-slate-600 italic mb-4 leading-relaxed">"We had to <highlight>forage</highlight> for berries and edible roots to survive in the wilderness."</p>
-                    <div class="p-4 bg-slate-50/50 rounded-xl border border-slate-100">
-                        <p class="text-sm text-slate-500 font-medium">우리는 / 해야 했다 / <highlight>식량을 찾아다니다</highlight> / 베리류와 / 먹을 수 있는 / 뿌리를 / 생존하기 위해 / 황야에서.</p>
-                    </div>
-                </div>
-
-                <!-- Word 3 -->
-                <div class="glass p-8 rounded-3xl card-hover">
-                    <div class="flex justify-between items-start mb-4">
-                        <h3 class="text-3xl font-800 text-brand-700">Dehydration</h3>
-                        <span class="bg-brand-100 text-brand-700 px-3 py-1 rounded-lg text-sm font-bold">탈수</span>
-                    </div>
-                    <p class="text-slate-600 italic mb-4 leading-relaxed">"Symptoms of severe dehydration can <highlight>include</highlight> dizziness and extreme thirst in a hot climate."</p>
-                    <div class="p-4 bg-slate-50/50 rounded-xl border border-slate-100">
-                        <p class="text-sm text-slate-500 font-medium">증상들은 / 심각한 / 탈수의 / 수 / <highlight>포함할 수 있다</highlight> / 현기증과 / 극심한 / 갈증을 / 뜨거운 / 기후에서.</p>
-                    </div>
-                </div>
-
-                <!-- Word 4 -->
-                <div class="glass p-8 rounded-3xl card-hover">
-                    <div class="flex justify-between items-start mb-4">
-                        <h3 class="text-3xl font-800 text-brand-700">Improvise</h3>
-                        <span class="bg-brand-100 text-brand-700 px-3 py-1 rounded-lg text-sm font-bold">임시변통하다</span>
-                    </div>
-                    <p class="text-slate-600 italic mb-4 leading-relaxed">"The survivalist <highlight>improvised</highlight> a signal mirror using a broken piece of glass."</p>
-                    <div class="p-4 bg-slate-50/50 rounded-xl border border-slate-100">
-                        <p class="text-sm text-slate-500 font-medium">그 / 생존주의자는 / <highlight>임시변통했다</highlight> / 신호 / 거울을 / 사용해서 / 깨진 / 유리 / 조각을.</p>
-                    </div>
-                </div>
-
-                <!-- Word 5 -->
-                <div class="glass p-8 rounded-3xl card-hover">
-                    <div class="flex justify-between items-start mb-4">
-                        <h3 class="text-3xl font-800 text-brand-700">Resourceful</h3>
-                        <span class="bg-brand-100 text-brand-700 px-3 py-1 rounded-lg text-sm font-bold">재치 있는</span>
-                    </div>
-                    <p class="text-slate-600 italic mb-4 leading-relaxed">"Her resourceful nature <highlight>helped</highlight> them find water even in the dry desert environment."</p>
-                    <div class="p-4 bg-slate-50/50 rounded-xl border border-slate-100">
-                        <p class="text-sm text-slate-500 font-medium">그녀의 / 재치 있는 / 성격은 / <highlight>도왔다</highlight> / 그들이 / 물을 / 찾도록 / 심지어 / 건조한 / 사막 / 환경에서도.</p>
-                    </div>
-                </div>
-
-                <!-- Word 6 -->
-                <div class="glass p-8 rounded-3xl card-hover">
-                    <div class="flex justify-between items-start mb-4">
-                        <h3 class="text-3xl font-800 text-brand-700">Hazard</h3>
-                        <span class="bg-brand-100 text-brand-700 px-3 py-1 rounded-lg text-sm font-bold">위험</span>
-                    </div>
-                    <p class="text-slate-600 italic mb-4 leading-relaxed">"Falling rocks <highlight>were</highlight> a constant hazard during their climb up the steep mountain path."</p>
-                    <div class="p-4 bg-slate-50/50 rounded-xl border border-slate-100">
-                        <p class="text-sm text-slate-500 font-medium">떨어지는 / 바위들은 / <highlight>이었다</highlight> / 끊임없는 / 위험 / 그들의 / 등반 / 동안 / 가파른 / 산길을 / 오르는.</p>
-                    </div>
-                </div>
-
-                <!-- Word 7 -->
-                <div class="glass p-8 rounded-3xl card-hover">
-                    <div class="flex justify-between items-start mb-4">
-                        <h3 class="text-3xl font-800 text-brand-700">Disorientation</h3>
-                        <span class="bg-brand-100 text-brand-700 px-3 py-1 rounded-lg text-sm font-bold">방향 감각 상실</span>
-                    </div>
-                    <p class="text-slate-600 italic mb-4 leading-relaxed">"The sudden storm <highlight>led</highlight> to complete disorientation among the hikers in the vast wilderness."</p>
-                    <div class="p-4 bg-slate-50/50 rounded-xl border border-slate-100">
-                        <p class="text-sm text-slate-500 font-medium">그 / 갑작스러운 / 폭풍은 / <highlight>이끌었다</highlight> / 완전한 / 방향 감각 상실로 / 그 / 등산객들 / 사이에서 / 광활한 / 황야에서.</p>
-                    </div>
-                </div>
-
-                <!-- Word 8 -->
-                <div class="glass p-8 rounded-3xl card-hover">
-                    <div class="flex justify-between items-start mb-4">
-                        <h3 class="text-3xl font-800 text-brand-700">Sustenance</h3>
-                        <span class="bg-brand-100 text-brand-700 px-3 py-1 rounded-lg text-sm font-bold">음식, 자양분</span>
-                    </div>
-                    <p class="text-slate-600 italic mb-4 leading-relaxed">"Finding enough sustenance <highlight>was</highlight> the primary challenge for the shipwrecked crew on the island."</p>
-                    <div class="p-4 bg-slate-50/50 rounded-xl border border-slate-100">
-                        <p class="text-sm text-slate-500 font-medium">충분한 / 생명을 유지하는 것을 / 찾는 것은 / <highlight>이었다</highlight> / 주된 / 난제 / 그 / 난파된 / 선원들에게 / 섬에서.</p>
-                    </div>
-                </div>
-
-                <!-- Word 9 -->
-                <div class="glass p-8 rounded-3xl card-hover">
-                    <div class="flex justify-between items-start mb-4">
-                        <h3 class="text-3xl font-800 text-brand-700">Ration</h3>
-                        <span class="bg-brand-100 text-brand-700 px-3 py-1 rounded-lg text-sm font-bold">배급하다</span>
-                    </div>
-                    <p class="text-slate-600 italic mb-4 leading-relaxed">"They <highlight>rationed</highlight> their remaining water carefully, making it last longer."</p>
-                    <div class="p-4 bg-slate-50/50 rounded-xl border border-slate-100">
-                        <p class="text-sm text-slate-500 font-medium">그들은 / <highlight>배급했다</highlight> / 그들의 / 남은 / 물을 / 신중하게, / 그것이 / 더 / 오래 / 지속되도록 / 만들면서.</p>
-                    </div>
-                </div>
-
-                <!-- Word 10 -->
-                <div class="glass p-8 rounded-3xl card-hover">
-                    <div class="flex justify-between items-start mb-4">
-                        <h3 class="text-3xl font-800 text-brand-700">Expedition</h3>
-                        <span class="bg-brand-100 text-brand-700 px-3 py-1 rounded-lg text-sm font-bold">탐험, 원정</span>
-                    </div>
-                    <p class="text-slate-600 italic mb-4 leading-relaxed">"The challenging expedition <highlight>required</highlight> extensive planning and rigorous physical training from everyone involved."</p>
-                    <div class="p-4 bg-slate-50/50 rounded-xl border border-slate-100">
-                        <p class="text-sm text-slate-500 font-medium">그 / 힘든 / 탐험은 / <highlight>요구했다</highlight> / 광범위한 / 계획과 / 엄격한 / 신체 / 훈련을 / 관련된 / 모든 사람으로부터.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Quiz Section -->
-        <section id="quiz">
-            <div class="flex items-center gap-4 mb-10">
-                <h2 class="font-display font-800 text-4xl text-slate-900">Quiz Challenge</h2>
-                <div class="h-1 flex-1 bg-gradient-to-r from-survival-gold to-transparent rounded-full opacity-20"></div>
-            </div>
-
-            <div id="quiz-container" class="space-y-12">
-                <!-- Question Template will be populated by JS for better management but structured here for UI clarity -->
-            </div>
-
-            <div class="mt-16 flex justify-center">
-                <button onclick="handleScore()" class="group relative px-12 py-5 bg-brand-600 text-white rounded-2xl font-800 text-xl shadow-2xl shadow-brand-200 hover:bg-brand-700 transform hover:scale-105 transition-all active:scale-95 overflow-hidden">
-                    <span class="relative z-10">채점하기 (Grade Quiz)</span>
-                    <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
-                </button>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- Modal for Name Input & Result -->
-    <div id="modal-overlay" class="fixed inset-0 bg-brand-900/60 backdrop-blur-sm z-[100] hidden flex items-center justify-center p-6">
-        <div id="name-modal" class="glass bg-white w-full max-w-md rounded-3xl p-8 shadow-2xl transform transition-all">
-            <h3 class="font-display font-800 text-2xl mb-2">거의 다 왔습니다!</h3>
-            <p class="text-slate-500 mb-6">성적표를 확인하기 위해 이름을 입력해주세요.</p>
-            <input type="text" id="user-name" placeholder="이름을 입력하세요" class="w-full px-6 py-4 rounded-2xl border-2 border-slate-100 focus:border-brand-500 focus:outline-none mb-6 text-lg font-semibold">
-            <button onclick="submitResult()" class="w-full py-4 bg-brand-600 text-white rounded-2xl font-bold text-lg hover:bg-brand-700 transition-colors shadow-lg">결과 확인하기</button>
-        </div>
-
-        <div id="result-modal" class="glass bg-white w-full max-w-md rounded-3xl p-10 shadow-2xl transform transition-all hidden text-center">
-            <div id="score-circle" class="w-32 h-32 rounded-full border-8 border-brand-500 flex items-center justify-center mx-auto mb-6">
-                <span id="final-score" class="text-4xl font-800 text-brand-900">0</span>
-            </div>
-            <h3 class="font-display font-800 text-3xl mb-2" id="result-greeting">훌륭합니다!</h3>
-            <p class="text-slate-500 mb-8" id="result-message">당신의 서바이벌 점수입니다.</p>
-            <button onclick="closeModal()" class="w-full py-4 bg-slate-900 text-white rounded-2xl font-bold text-lg hover:bg-slate-800 transition-colors">닫기</button>
-        </div>
+<div class="container">
+    <div class="header">
+        <h1>🌰 고3반 수능실감_단어연습</h1>
+        <p>
+            문제풀기전에 기본훈련을 꼭 하고 임해봅시다!!<br>
+            킬러문항과 관련된 단어공부가 많으니 잘 활용합시다.
+        </p>
     </div>
 
-    <script>
-        const quizData = [
-            {
-                q: "Which of the following words best describes the act of searching for wild food to survive in a natural environment?",
-                bank: ["Shelter (피난처)", "Forage (식량 등을 찾아다니다)", "Dehydration (탈수)", "Improvise (임시변통하다)", "Resourceful (재치 있는)", "Hazard (위험)", "Sustenance (음식)", "Expedition (탐험)"],
-                options: ["Forage", "Improvise", "Ration", "Hazard"],
-                answer: "Forage"
-            },
-            {
-                q: "What term refers to the state of losing one's sense of direction, often in unfamiliar or confusing surroundings?",
-                bank: ["Dehydration (탈수)", "Improvise (임시변통하다)", "Resourceful (재치 있는)", "Hazard (위험)", "Disorientation (방향 감각 상실)", "Sustenance (음식)", "Ration (배급)", "Expedition (탐험)"],
-                options: ["Dehydration", "Disorientation", "Expedition", "Sustenance"],
-                answer: "Disorientation"
-            },
-            {
-                q: "A dangerous condition characterized by an excessive loss of body fluid is known as what?",
-                bank: ["Shelter (피난처)", "Forage (식량 등을 찾아다니다)", "Dehydration (탈수)", "Resourceful (재치 있는)", "Hazard (위험)", "Disorientation (방향 감각 상실)", "Sustenance (음식)", "Ration (배급)"],
-                options: ["Disorientation", "Hazard", "Dehydration", "Sustenance"],
-                answer: "Dehydration"
-            },
-            {
-                q: "Which word describes an individual who is clever and able to deal with difficulties effectively?",
-                bank: ["Shelter (피난처)", "Forage (식량 등을 찾아다니다)", "Dehydration (탈수)", "Improvise (임시변통하다)", "Resourceful (재치 있는)", "Hazard (위험)", "Disorientation (방향 감각 상실)", "Sustenance (음식)"],
-                options: ["Resourceful", "Improvise", "Sustenance", "Forage"],
-                answer: "Resourceful"
-            },
-            {
-                q: "If you need to create something quickly and effectively using whatever is at hand, you would need to:",
-                bank: ["Shelter (피난처)", "Forage (식량 등을 찾아다니다)", "Dehydration (탈수)", "Improvise (임시변통하다)", "Resourceful (재치 있는)", "Hazard (위험)", "Sustenance (음식)", "Expedition (탐험)"],
-                options: ["Forage", "Improvise", "Ration", "Expedition"],
-                answer: "Improvise"
-            },
-            {
-                q: "What is a place offering protection from bad weather or danger called?",
-                bank: ["Shelter (피난처)", "Forage (식량 등을 찾아다니다)", "Dehydration (탈수)", "Improvise (임시변통하다)", "Hazard (위험)", "Disorientation (방향 감각 상실)", "Sustenance (음식)", "Expedition (탐험)"],
-                options: ["Hazard", "Shelter", "Sustenance", "Disorientation"],
-                answer: "Shelter"
-            },
-            {
-                q: "A journey undertaken by a group for exploration or scientific research is known as a(n):",
-                bank: ["Shelter (피난처)", "Forage (식량 등을 찾아다니다)", "Improvise (임시변통하다)", "Resourceful (재치 있는)", "Hazard (위험)", "Disorientation (방향 감각 상실)", "Sustenance (음식)", "Expedition (탐험)"],
-                options: ["Sustenance", "Hazard", "Expedition", "Disorientation"],
-                answer: "Expedition"
-            },
-            {
-                q: "To control the amount of something, especially a limited supply, is to:",
-                bank: ["Shelter (피난처)", "Forage (식량 등을 찾아다니다)", "Dehydration (탈수)", "Improvise (임시변통하다)", "Resourceful (재치 있는)", "Hazard (위험)", "Sustenance (음식)", "Ration (배급)"],
-                options: ["Improvise", "Forage", "Ration", "Resourceful"],
-                answer: "Ration"
-            },
-            {
-                q: "What is food and drink regarded as a source of strength and nourishment called?",
-                bank: ["Shelter (피난처)", "Forage (식량 등을 찾아다니다)", "Dehydration (탈수)", "Improvise (임시변통하다)", "Resourceful (재치 있는)", "Hazard (위험)", "Sustenance (음식)", "Ration (배급)"],
-                options: ["Sustenance", "Dehydration", "Shelter", "Hazard"],
-                answer: "Sustenance"
-            },
-            {
-                q: "An unavoidable danger or risk, especially one difficult to guard against, is a(n):",
-                bank: ["Shelter (피난처)", "Forage (식량 등을 찾아다니다)", "Dehydration (탈수)", "Improvise (임시변통하다)", "Resourceful (재치 있는)", "Hazard (위험)", "Disorientation (방향 감각 상실)", "Expedition (탐험)"],
-                options: ["Disorientation", "Expedition", "Hazard", "Shelter"],
-                answer: "Hazard"
-            }
-        ];
+    <div class="grid-container" id="folderGrid">
+        <!-- 자바스크립트가 25개의 폴더 링크를 생성합니다 -->
+    </div>
 
-        function initQuiz() {
-            const container = document.getElementById('quiz-container');
-            quizData.forEach((item, idx) => {
-                const qDiv = document.createElement('div');
-                qDiv.className = "glass p-10 rounded-[2rem] border border-slate-200 relative overflow-hidden";
-                qDiv.innerHTML = `
-                    <div class="absolute top-0 left-0 w-2 h-full bg-brand-500 opacity-20"></div>
-                    <div class="mb-6">
-                        <span class="text-sm font-800 text-brand-500 uppercase tracking-widest">Question ${idx + 1}</span>
-                        <h4 class="text-xl font-bold mt-1 text-slate-800 leading-snug">${item.q}</h4>
-                    </div>
-                    
-                    <div class="mb-8">
-                        <p class="text-xs font-bold text-slate-400 uppercase mb-3 flex items-center gap-2">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
-                            Word Bank
-                        </p>
-                        <div class="flex flex-wrap gap-2">
-                            ${item.bank.map(word => `<span class="px-3 py-1 bg-white border border-slate-200 rounded-full text-xs font-semibold text-slate-600 shadow-sm">${word}</span>`).join('')}
-                        </div>
-                    </div>
+    <footer>
+        &copy; 2024 수능실감 단어 문제풀이 시스템. 모든 권리 보유.
+    </footer>
+</div>
 
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" id="q-group-${idx}">
-                        ${item.options.map((opt, i) => `
-                            <div class="relative">
-                                <input type="radio" name="q${idx}" id="q${idx}o${i}" value="${opt}" class="hidden quiz-option">
-                                <label for="q${idx}o${i}" class="block px-6 py-4 rounded-2xl border-2 border-slate-100 bg-slate-50/30 font-semibold cursor-pointer hover:border-brand-200 transition-all">
-                                    ${opt}
-                                </label>
-                            </div>
-                        `).join('')}
-                    </div>
-                `;
-                container.appendChild(qDiv);
-            });
-        }
+<script>
+    const grid = document.getElementById('folderGrid');
+    
+    // 01회부터 50회까지 2회 단위로 반복 (총 25개 폴더)
+    for (let i = 1; i <= 50; i += 2) {
+        const start = String(i).padStart(2, '0');
+        const end = String(i + 1).padStart(2, '0');
+        const folderName = `수능실감_${start}회_${end}회`;
+        
+        const card = document.createElement('a');
+        card.href = `${folderName}/index.html`;
+        card.className = `folder-card`;
+        
+        card.innerHTML = `
+            <span class="folder-name">${start}회 - ${end}회</span>
+        `;
+        grid.appendChild(card);
+    }
+</script>
 
-        let currentScore = 0;
-
-        function handleScore() {
-            document.getElementById('modal-overlay').classList.remove('hidden');
-            document.getElementById('name-modal').classList.remove('hidden');
-            document.getElementById('result-modal').classList.add('hidden');
-        }
-
-        function submitResult() {
-            const userName = document.getElementById('user-name').value.trim();
-            if (!userName) {
-                alert("이름을 입력해주세요.");
-                return;
-            }
-
-            let score = 0;
-            quizData.forEach((item, idx) => {
-                const selected = document.querySelector(`input[name="q${idx}"]:checked`);
-                const options = document.querySelectorAll(`input[name="q${idx}"]`);
-                
-                options.forEach(opt => {
-                    const label = opt.nextElementSibling;
-                    label.classList.remove('bg-brand-600', 'text-white', 'border-brand-600');
-                    if (opt.value === item.answer) {
-                        label.style.borderColor = "#22c55e"; // Correct color
-                    }
-                });
-
-                if (selected) {
-                    if (selected.value === item.answer) {
-                        score += 10;
-                        selected.nextElementSibling.style.backgroundColor = "#22c55e";
-                        selected.nextElementSibling.style.color = "white";
-                    } else {
-                        selected.nextElementSibling.style.backgroundColor = "#ef4444";
-                        selected.nextElementSibling.style.color = "white";
-                        selected.nextElementSibling.style.borderColor = "#ef4444";
-                    }
-                }
-            });
-
-            currentScore = score;
-            
-            // Post to Google Script
-            const scriptUrl = "https://script.google.com/macros/s/AKfycbxTh62kPCjXpvLyrQF-Lg1pGKMePzdG0yPKjlQW44FOiCCQ2UcUb_IRfPndG33gpf0mnw/exec";
-            fetch(scriptUrl, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    user_name: userName,
-                    score: score,
-                    topic_keyword: "survival",
-                    learning_level: "고2"
-                })
-            });
-
-            // Show results
-            document.getElementById('name-modal').classList.add('hidden');
-            document.getElementById('result-modal').classList.remove('hidden');
-            document.getElementById('final-score').innerText = score;
-            
-            if (score >= 80) {
-                document.getElementById('result-greeting').innerText = "완벽합니다!";
-                document.getElementById('score-circle').className = "w-32 h-32 rounded-full border-8 border-survival-success flex items-center justify-center mx-auto mb-6";
-            } else if (score >= 50) {
-                document.getElementById('result-greeting').innerText = "잘 하셨습니다!";
-                document.getElementById('score-circle').className = "w-32 h-32 rounded-full border-8 border-survival-gold flex items-center justify-center mx-auto mb-6";
-            } else {
-                document.getElementById('result-greeting').innerText = "조금 더 노력이 필요해요!";
-                document.getElementById('score-circle').className = "w-32 h-32 rounded-full border-8 border-survival-danger flex items-center justify-center mx-auto mb-6";
-            }
-        }
-
-        function closeModal() {
-            document.getElementById('modal-overlay').classList.add('hidden');
-        }
-
-        window.onload = initQuiz;
-    </script>
 </body>
 </html>
